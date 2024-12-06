@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <ion-title>Realizar captura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(foto != null) {
+    <img [src]="'data:image/png;base64,' + foto.base64String" />
+
+    <ion-item>
+      <ion-textarea [(ngModel)]="texto" label="Descrição" placeholder="Descreve o momento" rows="5" label-placement="floating" fill="outline" />
+    </ion-item>
+
+    <ion-button (click)="salvar()" color="success" expand="full">Salvar imagem</ion-button>
+  }
+
+  <ion-button (click)="capturar()" expand="full">Realizar nova captura</ion-button>
+</ion-content>

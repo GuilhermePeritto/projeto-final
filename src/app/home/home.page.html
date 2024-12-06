@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="success">
+    <ion-title>
+      Galeria de fotos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Galeria de fotos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="onRealizarCaptura()" color="success">
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  @if(imagens.length === 0) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nenhuma imagem salva!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button (click)="onRealizarCaptura()" color="success" expand="full">
+        Realizar captura
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  }
+
+  <ion-button routerLink="/posts">Ir para posts</ion-button>
+
+  <ion-button routerLink="/products">Ir para produtos</ion-button>
+
+  <ion-list>
+    @for(imagem of imagens; track imagem) {
+    <ion-item>
+      <ion-card>
+        <img [src]="'data:image/png;base64,' + imagem.foto" />
+        <ion-card-content>
+          <p>{{imagem.texto}}</p>
+
+          <div>
+            <ion-label>Comentários:</ion-label>
+            <ion-list>
+              <ion-item *ngFor="let comentario of imagem.comentarios">
+                {{ comentario }}
+              </ion-item>
+            </ion-list>
+            <ion-input [(ngModel)]="novoComentario" placeholder="Adicione um comentário" clearInput>
+            </ion-input>
+            <ion-button (click)="adicionarComentario(imagem, novoComentario)" color="success">
+              Adicionar
+            </ion-button>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>
